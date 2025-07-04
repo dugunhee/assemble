@@ -14,21 +14,22 @@ int main()
 
 int main()
 {
+    Assemble assemble;
     char inputStr[100];
     int step = CarType_Q;
 
     while (1)
     {
-        printMenu(step);
-        if (!getUserInput(inputStr)) {
+        assemble.printMenu(step);
+        if (!assemble.getUserInput(inputStr)) {
             break;
         }
-        int digit = changeInputToDigit(inputStr);
+        int digit = assemble.changeInputToDigit(inputStr);
         if (digit == -1) {
             continue;
         }
-        if (!checkInputValid(step, digit)) {
-            delay(800);
+        if (!assemble.checkInputValid(step, digit)) {
+            assemble.delay(800);
             continue;
         }
 
@@ -46,7 +47,7 @@ int main()
             continue;
         }
 
-        runStep(step, digit);
+        assemble.runStep(step, digit);
     }
 }
 

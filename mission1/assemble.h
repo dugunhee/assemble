@@ -2,8 +2,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <Windows.h>
+#include <string>
 
 #define CLEAR_SCREEN "\033[H\033[2J"
+
+using namespace std;
 
 enum QuestionType
 {
@@ -21,7 +24,7 @@ enum CarType
     TRUCK
 };
 
-enum Engine
+enum EngineSystem
 {
     GM = 1,
     TOYOTA,
@@ -47,17 +50,21 @@ enum RunTest {
     TEST = 2
 };
 
-static int stack[10];
+class Assemble {
+public:
+    void selectCarType(enum CarType carType);
+    void selectEngine(enum EngineSystem engine);
+    void selectbrakeSystem(enum BrakeSystem brakeSystem);
+    void selectSteeringSystem(enum SteeringSystem steeringSystem);
+    void runProducedCar();
+    void testProducedCar();
+    void delay(int ms);
+    void printMenu(int step);
+    bool getUserInput(char* input);
+    int changeInputToDigit(char* input);
+    bool checkInputValid(int step, int digit);
+    void runStep(int& step, int digit);
+    int isValidCheck();
 
-void selectCarType(enum CarType carType);
-void selectEngine(enum Engine engine);
-void selectbrakeSystem(enum BrakeSystem brakeSystem);
-void selectSteeringSystem(enum SteeringSystem steeringSystem);
-void runProducedCar();
-void testProducedCar();
-void delay(int ms);
-void printMenu(int step);
-bool getUserInput(char* input);
-int changeInputToDigit(char* input);
-bool checkInputValid(int step, int digit);
-void runStep(int& step, int digit);
+    int stack[10];
+};

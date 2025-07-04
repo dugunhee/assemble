@@ -1,11 +1,11 @@
 #include "assemble.h"
 
-void delay(int ms)
+void Assemble::delay(int ms)
 {
     Sleep(ms);
 }
 
-void printMenu(int step) {
+void Assemble::printMenu(int step) {
     printf(CLEAR_SCREEN);
     if (step == CarType_Q)
     {
@@ -55,7 +55,7 @@ void printMenu(int step) {
     printf("===============================\n");
 }
 
-bool getUserInput(char* input) {
+bool Assemble::getUserInput(char* input) {
     printf("INPUT > ");
     fgets(input, sizeof(input), stdin);
 
@@ -72,7 +72,7 @@ bool getUserInput(char* input) {
     return true;
 }
 
-int changeInputToDigit(char* input) {
+int Assemble::changeInputToDigit(char* input) {
     // 숫자로 된 대답인지 확인
     char* checkNumber;
     int digit = strtol(input, &checkNumber, 10); // 문자열을 10진수로 변환
@@ -87,7 +87,7 @@ int changeInputToDigit(char* input) {
     return digit;
 }
 
-bool checkInputValid(int step, int digit) {
+bool Assemble::checkInputValid(int step, int digit) {
     if (step == CarType_Q && !(digit >= 1 && digit <= 3))
     {
         printf("ERROR :: 차량 타입은 1 ~ 3 범위만 선택 가능\n");
@@ -116,7 +116,7 @@ bool checkInputValid(int step, int digit) {
     return true;
 }
 
-void runStep(int& step, int digit) {
+void Assemble::runStep(int& step, int digit) {
     if (step == CarType_Q)
     {
         selectCarType(static_cast<CarType>(digit));
@@ -125,7 +125,7 @@ void runStep(int& step, int digit) {
     }
     else if (step == Engine_Q)
     {
-        selectEngine(static_cast<Engine>(digit));
+        selectEngine(static_cast<EngineSystem>(digit));
         delay(800);
         step = brakeSystem_Q;
     }
@@ -155,7 +155,7 @@ void runStep(int& step, int digit) {
     }
 }
 
-void selectCarType(CarType carType)
+void Assemble::selectCarType(CarType carType)
 {
     stack[CarType_Q] = carType;
     if (carType == SEDAN)
@@ -166,7 +166,7 @@ void selectCarType(CarType carType)
         printf("차량 타입으로 Truck을 선택하셨습니다.\n");
 }
 
-void selectEngine(Engine engine)
+void Assemble::selectEngine(EngineSystem engine)
 {
     stack[Engine_Q] = engine;
     if (engine == GM)
@@ -177,7 +177,7 @@ void selectEngine(Engine engine)
         printf("WIA 엔진을 선택하셨습니다.\n");
 }
 
-void selectbrakeSystem(BrakeSystem brakeSystem)
+void Assemble::selectbrakeSystem(BrakeSystem brakeSystem)
 {
     stack[brakeSystem_Q] = brakeSystem;
     if (brakeSystem == MANDO)
@@ -188,7 +188,7 @@ void selectbrakeSystem(BrakeSystem brakeSystem)
         printf("BOSCH 제동장치를 선택하셨습니다.\n");
 }
 
-void selectSteeringSystem(SteeringSystem steeringSystem)
+void Assemble::selectSteeringSystem(SteeringSystem steeringSystem)
 {
     stack[SteeringSystem_Q] = steeringSystem;
     if (steeringSystem == BOSCH_S)
@@ -197,7 +197,7 @@ void selectSteeringSystem(SteeringSystem steeringSystem)
         printf("MOBIS 조향장치를 선택하셨습니다.\n");
 }
 
-int isValidCheck()
+int Assemble::isValidCheck()
 {
     if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL)
     {
@@ -226,7 +226,7 @@ int isValidCheck()
     return true;
 }
 
-void runProducedCar()
+void Assemble::runProducedCar()
 {
     if (isValidCheck() == false)
     {
@@ -269,7 +269,7 @@ void runProducedCar()
     }
 }
 
-void testProducedCar()
+void Assemble::testProducedCar()
 {
     if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL)
     {
