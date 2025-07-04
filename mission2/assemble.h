@@ -35,7 +35,7 @@ public:
     }
     void delay(int ms);
     void printMenu(int step);
-    bool getUserInput(char* input);
+    //bool getUserInput(char* input);
     int changeInputToDigit(char* input);
     bool checkInputValid(int step, int digit);
     void runStep(int& step, int digit);
@@ -43,11 +43,12 @@ public:
     void selectEngine(EngineSystem engine);
     void selectbrakeSystem(BrakeSystem brakeSystem);
     void selectSteeringSystem(SteeringSystem steeringSystem);
-    int isValidCheck();
+    //int isValidCheck();
     void runProducedCar();
     void testProducedCar();
-
-    int stack[10];
+    Car* getCar() {
+        return car;
+    }
 private:
     Car* car;
     CarFactory carFactory;

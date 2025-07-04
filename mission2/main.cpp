@@ -21,7 +21,20 @@ int main()
     while (1)
     {
         assemble.printMenu(step);
-        if (!assemble.getUserInput(inputStr)) {
+        /*if (!assemble.getUserInput(inputStr)) {
+            break;
+        }*/
+        printf("INPUT > ");
+        fgets(inputStr, sizeof(inputStr), stdin);
+
+        // 엔터 개행문자 제거
+        char* context = nullptr;
+        strtok_s(inputStr, "\r", &context);
+        strtok_s(inputStr, "\n", &context);
+
+        if (!strcmp(inputStr, "exit"))
+        {
+            printf("바이바이\n");
             break;
         }
         int digit = assemble.changeInputToDigit(inputStr);

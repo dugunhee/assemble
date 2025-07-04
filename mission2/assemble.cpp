@@ -54,7 +54,7 @@ void Assemble::printMenu(int step) {
     }
     printf("===============================\n");
 }
-
+/*
 bool Assemble::getUserInput(char* input) {
     printf("INPUT > ");
     fgets(input, sizeof(input), stdin);
@@ -71,7 +71,7 @@ bool Assemble::getUserInput(char* input) {
     }
     return true;
 }
-
+*/
 int Assemble::changeInputToDigit(char* input) {
     // 숫자로 된 대답인지 확인
     char* checkNumber;
@@ -167,6 +167,7 @@ void Assemble::selectCarType(CarType carType)
 
 void Assemble::selectEngine(EngineSystem engine)
 {
+    if (!car) return;
     if (car->getEngine()) {
         delete car->getEngine();
     }
@@ -176,6 +177,7 @@ void Assemble::selectEngine(EngineSystem engine)
 
 void Assemble::selectbrakeSystem(BrakeSystem brakeSystem)
 {
+    if (!car) return;
     if (car->getBrake()) {
         delete car->getBrake();
     }
@@ -185,6 +187,7 @@ void Assemble::selectbrakeSystem(BrakeSystem brakeSystem)
 
 void Assemble::selectSteeringSystem(SteeringSystem steeringSystem)
 {
+    if (!car) return;
     if (car->getSteering()) {
         delete car->getSteering();
     }
@@ -194,17 +197,13 @@ void Assemble::selectSteeringSystem(SteeringSystem steeringSystem)
 
 void Assemble::runProducedCar()
 {
-    if (!car) {
-        return;
-    }
+    if (!car) return;
     car->run();
 }
 
 void Assemble::testProducedCar()
 {
-    if (!car) {
-        return;
-    }
+    if (!car) return;
     if (car->isValidCheck()) {
         printf("자동차 부품 조합 테스트 결과 : PASS\n");
     }
