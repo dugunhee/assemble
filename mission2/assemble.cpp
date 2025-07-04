@@ -157,147 +157,58 @@ void Assemble::runStep(int& step, int digit) {
 
 void Assemble::selectCarType(CarType carType)
 {
-    stack[CarType_Q] = carType;
-    if (carType == SEDAN)
-        printf("차량 타입으로 Sedan을 선택하셨습니다.\n");
-    if (carType == SUV)
-        printf("차량 타입으로 SUV을 선택하셨습니다.\n");
-    if (carType == TRUCK)
-        printf("차량 타입으로 Truck을 선택하셨습니다.\n");
+    if (car) {
+        //printf("차량을 다시 제조합니다.\n");
+        delete car;
+    }
+    car = carFactory.createCar(carType);
+    printf("차량 타입으로 %s을 선택하셨습니다.\n", car->name.c_str());
 }
 
 void Assemble::selectEngine(EngineSystem engine)
 {
-    stack[Engine_Q] = engine;
-    if (engine == GM)
-        printf("GM 엔진을 선택하셨습니다.\n");
-    if (engine == TOYOTA)
-        printf("TOYOTA 엔진을 선택하셨습니다.\n");
-    if (engine == WIA)
-        printf("WIA 엔진을 선택하셨습니다.\n");
+    if (car->getEngine()) {
+        delete car->getEngine();
+    }
+    car->setEngine(engineFactory.createEngine(engine));
+    printf("%s 엔진을 선택하셨습니다.\n", car->getEngine()->name.c_str());
 }
 
 void Assemble::selectbrakeSystem(BrakeSystem brakeSystem)
 {
-    stack[brakeSystem_Q] = brakeSystem;
-    if (brakeSystem == MANDO)
-        printf("MANDO 제동장치를 선택하셨습니다.\n");
-    if (brakeSystem == CONTINENTAL)
-        printf("CONTINENTAL 제동장치를 선택하셨습니다.\n");
-    if (brakeSystem == BOSCH_B)
-        printf("BOSCH 제동장치를 선택하셨습니다.\n");
+    if (car->getBrake()) {
+        delete car->getBrake();
+    }
+    car->setBrake(brakeFactory.createEngine(brakeSystem));
+    printf("%s 제동장치를 선택하셨습니다.\n", car->getBrake()->name.c_str());
 }
 
 void Assemble::selectSteeringSystem(SteeringSystem steeringSystem)
 {
-    stack[SteeringSystem_Q] = steeringSystem;
-    if (steeringSystem == BOSCH_S)
-        printf("BOSCH 조향장치를 선택하셨습니다.\n");
-    if (steeringSystem == MOBIS)
-        printf("MOBIS 조향장치를 선택하셨습니다.\n");
-}
-
-int Assemble::isValidCheck()
-{
-    if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL)
-    {
-        return false;
+    if (car->getSteering()) {
+        delete car->getSteering();
     }
-    else if (stack[CarType_Q] == SUV && stack[Engine_Q] == TOYOTA)
-    {
-        return false;
-    }
-    else if (stack[CarType_Q] == TRUCK && stack[Engine_Q] == WIA)
-    {
-        return false;
-    }
-    else if (stack[CarType_Q] == TRUCK && stack[brakeSystem_Q] == MANDO)
-    {
-        return false;
-    }
-    else if (stack[brakeSystem_Q] == BOSCH_B && stack[SteeringSystem_Q] != BOSCH_S)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-    return true;
+    car->setSteering(steeringFactory.createSteering(steeringSystem));
+    printf("%s 조향장치를 선택하셨습니다.\n", car->getSteering()->name.c_str());
 }
 
 void Assemble::runProducedCar()
 {
-    if (isValidCheck() == false)
-    {
-        printf("자동차가 동작되지 않습니다\n");
+    if (!car) {
+        return;
     }
-    else
-    {
-        if (stack[Engine_Q] == WRONG_ENGINE)
-        {
-            printf("엔진이 고장나있습니다.\n");
-            printf("자동차가 움직이지 않습니다.\n");
-        }
-        else
-        {
-            if (stack[CarType_Q] == SEDAN)
-                printf("Car Type : Sedan\n");
-            if (stack[CarType_Q] == SUV)
-                printf("Car Type : SUV\n");
-            if (stack[CarType_Q] == TRUCK)
-                printf("Car Type : Truck\n");
-            if (stack[Engine_Q] == GM)
-                printf("Engine : GM\n");
-            if (stack[Engine_Q] == TOYOTA)
-                printf("Engine : TOYOTA\n");
-            if (stack[Engine_Q] == WIA)
-                printf("Engine : WIA\n");
-            if (stack[brakeSystem_Q] == MANDO)
-                printf("Brake System : Mando");
-            if (stack[brakeSystem_Q] == CONTINENTAL)
-                printf("Brake System : Continental\n");
-            if (stack[brakeSystem_Q] == BOSCH_B)
-                printf("Brake System : Bosch\n");
-            if (stack[SteeringSystem_Q] == BOSCH_S)
-                printf("SteeringSystem : Bosch\n");
-            if (stack[SteeringSystem_Q] == MOBIS)
-                printf("SteeringSystem : Mobis\n");
-
-            printf("자동차가 동작됩니다.\n");
-        }
-    }
+    car->run();
 }
 
 void Assemble::testProducedCar()
 {
-    if (stack[CarType_Q] == SEDAN && stack[brakeSystem_Q] == CONTINENTAL)
-    {
-        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
-        printf("Sedan에는 Continental제동장치 사용 불가\n");
+    if (!car) {
+        return;
     }
-    else if (stack[CarType_Q] == SUV && stack[Engine_Q] == TOYOTA)
-    {
-        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
-        printf("SUV에는 TOYOTA엔진 사용 불가\n");
-    }
-    else if (stack[CarType_Q] == TRUCK && stack[Engine_Q] == WIA)
-    {
-        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
-        printf("Truck에는 WIA엔진 사용 불가\n");
-    }
-    else if (stack[CarType_Q] == TRUCK && stack[brakeSystem_Q] == MANDO)
-    {
-        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
-        printf("Truck에는 Mando제동장치 사용 불가\n");
-    }
-    else if (stack[brakeSystem_Q] == BOSCH_B && stack[SteeringSystem_Q] != BOSCH_S)
-    {
-        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
-        printf("Bosch제동장치에는 Bosch조향장치 이외 사용 불가\n");
-    }
-    else
-    {
+    if (car->isValidCheck()) {
         printf("자동차 부품 조합 테스트 결과 : PASS\n");
+    }
+    else {
+        printf("자동차 부품 조합 테스트 결과 : FAIL\n");
     }
 }

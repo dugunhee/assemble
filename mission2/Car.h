@@ -37,14 +37,25 @@ class Steering;
 
 class Car {
 public:
-    Car(CarType type) : type(type) {
+    Car(){
         pEngine = nullptr;
         pBrake = nullptr;
         pSteering = nullptr;
         name = "";
-        if (type == SEDAN) name = "Sedan";
-        if (type == SUV) name = "SUV";
-        if (type == TRUCK) name = "Truck";
+    }
+    ~Car() {
+        if (!pEngine) {
+            delete pEngine;
+        }
+        if (!pBrake) {
+            delete pBrake;
+        }
+        if (!pSteering) {
+            delete pSteering;
+        }
+    }
+    void setType(CarType type) {
+        this->type = type;
     }
     void setEngine(Engine* engine) {
         pEngine = engine;
@@ -64,6 +75,11 @@ public:
     Steering* getSteering() {
         return pSteering;
     }
+    CarType getType() {
+        return type;
+    }
+    void run();
+    bool isValidCheck();
 
     string name;
 private:
@@ -76,35 +92,67 @@ private:
 
 class Engine {
 public:
-    Engine(EngineSystem system) : system(system) {
-        if (system == GM) name = "GM";
-        if (system == TOYOTA) name = "TOYOTA";
-        if (system == WIA) name = "WIA";
-    }
+    Engine(EngineSystem system) : system(system) {}
     string name;
-private:
     EngineSystem system;
 };
 
 class Brake {
 public:
-    Brake(BrakeSystem system) : system(system) {
-        if (system == MANDO) name = "MANDO";
-        if (system == CONTINENTAL) name = "CONTINENTAL";
-        if (system == BOSCH_B) name = "BOSCH_B";
-    }
+    Brake(BrakeSystem system) : system(system) {}
     string name;
-private:
     BrakeSystem system;
 };
 
 class Steering {
 public:
-    Steering(SteeringSystem system) : system(system) {
-        if (system == BOSCH_S) name = "BOSCH_S";
-        if (system == MOBIS) name = "MOBIS";
-    }
+    Steering(SteeringSystem system) : system(system) {}
     string name;
-private:
     SteeringSystem system;
+};
+
+class CarFactory {
+public:
+    Car* createCar(CarType type) {
+        Car* newCar = new Car();
+        newCar->setType(type);
+        if (newCar->getType() == SEDAN) newCar->name = "Sedan";
+        if (newCar->getType() == SUV) newCar->name = "SUV";
+        if (newCar->getType() == TRUCK) newCar->name = "Truck";
+
+        return newCar;
+    }
+};
+
+class EngineFactory {
+public:
+    Engine* createEngine(EngineSystem system) {
+        Engine* newEngine = new Engine(system);
+        if (system == GM) newEngine->name = "GM";
+        if (system == TOYOTA) newEngine->name = "TOYOTA";
+        if (system == WIA) newEngine->name = "WIA";
+
+        return newEngine;
+    }
+};
+class BrakeFactory {
+public:
+    Brake* createEngine(BrakeSystem system) {
+        Brake* newBrake = new Brake(system);
+        if (system == MANDO) newBrake->name = "MANDO";
+        if (system == CONTINENTAL) newBrake->name = "CONTINENTAL";
+        if (system == BOSCH_B) newBrake->name = "BOSCH_B";
+
+        return newBrake;
+    }
+};
+class SteeringFactory {
+public:
+    Steering* createSteering(SteeringSystem system) {
+        Steering* newSteering = new Steering(system);
+        if (system == BOSCH_S) newSteering->name = "BOSCH_S";
+        if (system == MOBIS) newSteering->name = "MOBIS";
+
+        return newSteering;
+    }
 };

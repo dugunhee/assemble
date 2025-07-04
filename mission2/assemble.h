@@ -26,9 +26,13 @@ enum RunTest {
 
 class Assemble {
 public:
-    /*Assemble() {
+    Assemble() {
         car = nullptr;
-    }*/
+    }
+    ~Assemble() {
+        if (car == nullptr) return;
+        delete car;
+    }
     void delay(int ms);
     void printMenu(int step);
     bool getUserInput(char* input);
@@ -44,5 +48,10 @@ public:
     void testProducedCar();
 
     int stack[10];
+private:
     Car* car;
+    CarFactory carFactory;
+    EngineFactory engineFactory;
+    BrakeFactory brakeFactory;
+    SteeringFactory steeringFactory;
 };
