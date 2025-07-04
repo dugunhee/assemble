@@ -18,10 +18,10 @@ int main()
 
 int stack[10];
 
-void selectCarType(int answer);
-void selectEngine(int answer);
-void selectbrakeSystem(int answer);
-void selectSteeringSystem(int answer);
+void selectCarType(enum CarType carType);
+void selectEngine(enum Engine engine);
+void selectbrakeSystem(enum BrakeSystem brakeSystem);
+void selectSteeringSystem(enum SteeringSystem steeringSystem);
 void runProducedCar();
 void testProducedCar();
 void delay(int ms);
@@ -46,10 +46,11 @@ enum Engine
 {
     GM = 1,
     TOYOTA,
-    WIA
+    WIA,
+    WRONG_ENGINE = 4
 };
 
-enum brakeSystem
+enum BrakeSystem
 {
     MANDO = 1,
     CONTINENTAL,
@@ -215,25 +216,25 @@ int main()
 
         if (step == CarType_Q)
         {
-            selectCarType(answer);
+            selectCarType(static_cast<CarType>(answer));
             delay(800);
             step = Engine_Q;
         }
         else if (step == Engine_Q)
         {
-            selectEngine(answer);
+            selectEngine(static_cast<Engine>(answer));
             delay(800);
             step = brakeSystem_Q;
         }
         else if (step == brakeSystem_Q)
         {
-            selectbrakeSystem(answer);
+            selectbrakeSystem(static_cast<BrakeSystem>(answer));
             delay(800);
             step = SteeringSystem_Q;
         }
         else if (step == SteeringSystem_Q)
         {
-            selectSteeringSystem(answer);
+            selectSteeringSystem(static_cast<SteeringSystem>(answer));
             delay(800);
             step = Run_Test;
         }
@@ -252,45 +253,45 @@ int main()
     }
 }
 
-void selectCarType(int answer)
+void selectCarType(CarType carType)
 {
-    stack[CarType_Q] = answer;
-    if (answer == 1)
+    stack[CarType_Q] = carType;
+    if (carType == SEDAN)
         printf("차량 타입으로 Sedan을 선택하셨습니다.\n");
-    if (answer == 2)
+    if (carType == SUV)
         printf("차량 타입으로 SUV을 선택하셨습니다.\n");
-    if (answer == 3)
+    if (carType == TRUCK)
         printf("차량 타입으로 Truck을 선택하셨습니다.\n");
 }
 
-void selectEngine(int answer)
+void selectEngine(Engine engine)
 {
-    stack[Engine_Q] = answer;
-    if (answer == 1)
+    stack[Engine_Q] = engine;
+    if (engine == GM)
         printf("GM 엔진을 선택하셨습니다.\n");
-    if (answer == 2)
+    if (engine == TOYOTA)
         printf("TOYOTA 엔진을 선택하셨습니다.\n");
-    if (answer == 3)
+    if (engine == WIA)
         printf("WIA 엔진을 선택하셨습니다.\n");
 }
 
-void selectbrakeSystem(int answer)
+void selectbrakeSystem(BrakeSystem brakeSystem)
 {
-    stack[brakeSystem_Q] = answer;
-    if (answer == 1)
+    stack[brakeSystem_Q] = brakeSystem;
+    if (brakeSystem == MANDO)
         printf("MANDO 제동장치를 선택하셨습니다.\n");
-    if (answer == 2)
+    if (brakeSystem == CONTINENTAL)
         printf("CONTINENTAL 제동장치를 선택하셨습니다.\n");
-    if (answer == 3)
+    if (brakeSystem == BOSCH_B)
         printf("BOSCH 제동장치를 선택하셨습니다.\n");
 }
 
-void selectSteeringSystem(int answer)
+void selectSteeringSystem(SteeringSystem steeringSystem)
 {
-    stack[SteeringSystem_Q] = answer;
-    if (answer == 1)
+    stack[SteeringSystem_Q] = steeringSystem;
+    if (steeringSystem == BOSCH_S)
         printf("BOSCH 조향장치를 선택하셨습니다.\n");
-    if (answer == 2)
+    if (steeringSystem == MOBIS)
         printf("MOBIS 조향장치를 선택하셨습니다.\n");
 }
 
@@ -331,34 +332,34 @@ void runProducedCar()
     }
     else
     {
-        if (stack[Engine_Q] == 4)
+        if (stack[Engine_Q] == WRONG_ENGINE)
         {
             printf("엔진이 고장나있습니다.\n");
             printf("자동차가 움직이지 않습니다.\n");
         }
         else
         {
-            if (stack[CarType_Q] == 1)
+            if (stack[CarType_Q] == SEDAN)
                 printf("Car Type : Sedan\n");
-            if (stack[CarType_Q] == 2)
+            if (stack[CarType_Q] == SUV)
                 printf("Car Type : SUV\n");
-            if (stack[CarType_Q] == 3)
+            if (stack[CarType_Q] == TRUCK)
                 printf("Car Type : Truck\n");
-            if (stack[Engine_Q] == 1)
+            if (stack[Engine_Q] == GM)
                 printf("Engine : GM\n");
-            if (stack[Engine_Q] == 2)
+            if (stack[Engine_Q] == TOYOTA)
                 printf("Engine : TOYOTA\n");
-            if (stack[Engine_Q] == 3)
+            if (stack[Engine_Q] == WIA)
                 printf("Engine : WIA\n");
-            if (stack[brakeSystem_Q] == 1)
+            if (stack[brakeSystem_Q] == MANDO)
                 printf("Brake System : Mando");
-            if (stack[brakeSystem_Q] == 2)
+            if (stack[brakeSystem_Q] == CONTINENTAL)
                 printf("Brake System : Continental\n");
-            if (stack[brakeSystem_Q] == 3)
+            if (stack[brakeSystem_Q] == BOSCH_B)
                 printf("Brake System : Bosch\n");
-            if (stack[SteeringSystem_Q] == 1)
+            if (stack[SteeringSystem_Q] == BOSCH_S)
                 printf("SteeringSystem : Bosch\n");
-            if (stack[SteeringSystem_Q] == 2)
+            if (stack[SteeringSystem_Q] == MOBIS)
                 printf("SteeringSystem : Mobis\n");
 
             printf("자동차가 동작됩니다.\n");
