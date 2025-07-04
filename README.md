@@ -1,7 +1,7 @@
 요구사항 정리 (D1 ~ D5)
 1. 함수 레벨 리팩토링
 
-D1 - 가독성있는 코드로 함수 분리, 가독성 좋은 네이밍 사용 [x]
+- [x] D1 - 가독성있는 코드로 함수 분리, 가독성 좋은 네이밍 사용
 
 Commit History
 - [refactoring] change method parameter /mission1 
@@ -10,12 +10,12 @@ Commit History
 
 2. 메서드 레벨 리팩토링
 
-D2 - Regression Test 를 위한 Unit Test 개발 [x]
+- [x] D2 - Regression Test 를 위한 Unit Test 개발
 
 Commit History
 - [refactoring] Add Assemble class and UnitTest /mission1 
 
-D3 – 확장성을 고려한 설계, 부품이 추가되더라도 Client Code에 변경이 없도록 한다. [x]
+- [x] D3 – 확장성을 고려한 설계, 부품이 추가되더라도 Client Code에 변경이 없도록 한다.
 
 Commit History
 - [mission2] Add Car & Engine & Brake & Steering class /mission2
@@ -25,13 +25,13 @@ Commit History
 3. 디자인 패턴 사용하기
 
 Commit History
-D4 - 리팩토링에 디자인 패턴을 적용한다. [x]
+- [x] D4 - 리팩토링에 디자인 패턴을 적용한다. 
 - [refactoring] Use Factory method to refactor /mission2 
 
 
 4. 코드 커버리지 100%
 
-D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다. [x]
+- [x] D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다.
 
 Commit History
 - [refactoring] Add UnitTest and TestCoverage 100 /mission2 
