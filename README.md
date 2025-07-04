@@ -2,6 +2,7 @@
 1. 함수 레벨 리팩토링
 
 D1 - 가독성있는 코드로 함수 분리, 가독성 좋은 네이밍 사용
+
 Commit History
 - [refactoring] change method parameter /mission1 [v]
 - [refactoring] method extract & divide file /mission1 [v]
@@ -10,10 +11,12 @@ Commit History
 2. 메서드 레벨 리팩토링
 
 D2 - Regression Test 를 위한 Unit Test 개발
+
 Commit History
 - [refactoring] Add Assemble class and UnitTest /mission1 [v]
 
 D3 – 확장성을 고려한 설계, 부품이 추가되더라도 Client Code에 변경이 없도록 한다.
+
 Commit History
 - [mission2] Add Car & Engine & Brake & Steering class /mission2 [v]
 - [refactoring] refactor Assemble method using Car /mission2 [v]
@@ -29,6 +32,7 @@ D4 - 리팩토링에 디자인 패턴을 적용한다.
 4. 코드 커버리지 100%
 
 D5 - 리팩토링이 끝난 코드에, 코드 커버리지가 100% 되어야 한다.
+
 Commit History
 - [refactoring] Add UnitTest and TestCoverage 100 /mission2 [v]
 
